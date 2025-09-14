@@ -1,4 +1,3 @@
-deixe quando o painel da white list aparecer com blur tipo tudo menos ele vai estar com blur dando foco no painel
 // ==UserScript==
 // @name         white list test versao com senha
 // @namespace    http://tampermonkey.net/
