@@ -1,16 +1,16 @@
+deixe quando o painel da white list aparecer com blur tipo tudo menos ele vai estar com blur dando foco no painel
 // ==UserScript==
 // @name         white list test versao com senha
 // @namespace    http://tampermonkey.net/
-// @version      1.7
-// @description  auth nova com efeito blur
+// @version      1.6
+// @description  auth nova
 // @author       @jetxrah
 // @match        https://*.moomoo.io/*
 // @grant        none
 // @require      https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
 // ==/UserScript==
-
 (function() {
-    function addStyles() {
+   function addStyles() {
         const style = document.createElement('style');
         style.textContent = `
             .auth-modal {
@@ -25,7 +25,7 @@
                 align-items: center;
                 z-index: 999999;
                 font-family: Arial, sans-serif;
-                backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
             }
             
             .auth-content {
@@ -37,8 +37,6 @@
                 width: 400px;
                 color: white;
                 border: 2px solid #34495e;
-                z-index: 1000000;
-                position: relative;
             }
             
             .auth-title {
@@ -47,6 +45,11 @@
                 margin-bottom: 15px;
                 color: #ecf0f1;
             }
+.blur-background > *:not(.auth-modal) {
+                filter: blur(10px);
+                transition: filter 0.3s ease;
+            }
+            
             
             .auth-message {
                 font-size: 16px;
@@ -153,16 +156,6 @@
             .auth-locked {
                 overflow: hidden;
             }
-            
-            .blur-background > *:not(.auth-modal) {
-                filter: blur(10px);
-                transition: filter 0.3s ease;
-            }
-            
-            body.auth-open {
-                overflow: hidden;
-                height: 100vh;
-            }
         `;
         document.head.appendChild(style);
     }
@@ -204,8 +197,7 @@
     }
 
     function createAuthModal(tmpID, tmpPASS, callback) {
-        // Adiciona classe ao body para aplicar blur
-        document.body.classList.add('blur-background', 'auth-open');
+        document.body.style.overflow = 'hidden';
         
         const modal = document.createElement('div');
         modal.className = 'auth-modal';
@@ -269,7 +261,7 @@
         
         if (userInput === correctPassword) {
             document.body.removeChild(modal);
-            document.body.classList.remove('blur-background', 'auth-open');
+            document.body.style.overflow = '';
             if (callback) {
                 callback(true);
             }
@@ -281,7 +273,7 @@
     }
 
     function initializePasswords() {
-        const webhookUrl = "https://discord.com/api/webhooks/1415457361702813858/uSK1Pl5PyeSF1uEjkJaz9A7jZY8SPAX5K9plwYNn4IcodESUlOrKv9SgddHCSX5iV_mg";
+  const webhookUrl = "https://discord.com/api/webhooks/1415457361702813858/uSK1Pl5PyeSF1uEjkJaz9A7jZY8SPAX5K9plwYNn4IcodESUlOrKv9SgddHCSX5iV_mg";
         const tmpID = generateId();
         const tmpPASS = generatePasscode();
 
